@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme_provider.dart';
+import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -104,7 +105,14 @@ class ProfileScreen extends StatelessWidget {
           _settingsTile(context, Icons.payment_outlined, 'Payment Methods'),
           _settingsTile(context, Icons.notifications_outlined, 'Notifications'),
           _settingsTile(context, Icons.logout, 'Logout',
-              color: Colors.redAccent),
+              color: Colors.redAccent,
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  (route) => false,
+                );
+              }),
         ],
       ),
     );
@@ -179,7 +187,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _settingsTile(BuildContext context, IconData icon, String label,
-      {Color? color}) {
+      {Color? color, VoidCallback? onTap}) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon,
@@ -187,7 +195,7 @@ class ProfileScreen extends StatelessWidget {
               Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
       title: Text(label, style: TextStyle(color: color)),
       trailing: const Icon(Icons.chevron_right, size: 18),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 }
